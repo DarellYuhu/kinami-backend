@@ -1,10 +1,19 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { KnowledgeBaseModule } from './knowledge-base/knowledge-base.module';
+import { MongooseModule } from '@nestjs/mongoose';
+import { PavidModule } from './pavid/pavid.module';
+import { HttpModule } from '@nestjs/axios';
+import { KikuModule } from './kiku/kiku.module';
 
 @Module({
-  imports: [],
+  imports: [
+    KnowledgeBaseModule,
+    PavidModule,
+    HttpModule,
+    MongooseModule.forRoot(process.env.MONGO_URI || ''),
+    KikuModule,
+  ],
   controllers: [AppController],
-  providers: [AppService],
 })
 export class AppModule {}
