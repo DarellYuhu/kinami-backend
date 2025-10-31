@@ -74,7 +74,7 @@ export class NewsService {
           return articles;
         } catch (error) {
           if (isAxiosError(error)) {
-            this.logger.error(`Request fail from: ${error.request}`);
+            this.logger.error(`Request fail from: ${error.config?.url}`);
           }
         }
       }),
