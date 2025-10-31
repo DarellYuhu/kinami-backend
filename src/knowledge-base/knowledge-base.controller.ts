@@ -1,17 +1,9 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Patch,
-  Param,
-  Delete,
-} from '@nestjs/common';
+import { Controller, Post, Body, Param } from '@nestjs/common';
 import { KnowledgeBaseService } from './knowledge-base.service';
 import { CreateKnowledgeBaseDto } from './dto/create-knowledge-base.dto';
-import { UpdateKnowledgeBaseDto } from './dto/update-knowledge-base.dto';
+import { AddPIpelineDto } from './dto/add-pipeline.dto';
 
-@Controller('knowledge-base')
+@Controller('knowledge-bases')
 export class KnowledgeBaseController {
   constructor(private readonly knowledgeBaseService: KnowledgeBaseService) {}
 
@@ -20,26 +12,8 @@ export class KnowledgeBaseController {
     return this.knowledgeBaseService.create(payload);
   }
 
-  @Get()
-  findAll() {
-    return this.knowledgeBaseService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.knowledgeBaseService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(
-    @Param('id') id: string,
-    @Body() updateKnowledgeBaseDto: UpdateKnowledgeBaseDto,
-  ) {
-    return this.knowledgeBaseService.update(+id, updateKnowledgeBaseDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.knowledgeBaseService.remove(+id);
+  @Post(':id/pipelines')
+  addPipeline(@Param('id') id: string, @Body() payload: AddPIpelineDto) {
+    return this.knowledgeBaseService.addPipeline(id, payload);
   }
 }

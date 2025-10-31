@@ -9,9 +9,7 @@ export class KikuService {
 
   async getDataList() {
     const { data } = await firstValueFrom(
-      this.http.get<KikuListData>(
-        'http://172.104.52.10:8041/api/transcriptions?per_page=50&page=1',
-      ),
+      this.http.get<KikuListData>('/api/transcriptions?per_page=50&page=1'),
     );
     return data.items;
   }

@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { CreateKnowledgeBaseDto } from './dto/create-knowledge-base.dto';
-import { UpdateKnowledgeBaseDto } from './dto/update-knowledge-base.dto';
 import { KnowledgeBase } from './entities/knowledge-base.entity';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
+import { AddPIpelineDto } from './dto/add-pipeline.dto';
 
 @Injectable()
 export class KnowledgeBaseService {
@@ -17,19 +17,11 @@ export class KnowledgeBaseService {
     return knowledgeBase.save();
   }
 
-  findAll() {
-    return `This action returns all knowledgeBase`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} knowledgeBase`;
-  }
-
-  update(id: number, updateKnowledgeBaseDto: UpdateKnowledgeBaseDto) {
-    return `This action updates a #${id} knowledgeBase`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} knowledgeBase`;
+  async addPipeline(id: string, payload: AddPIpelineDto) {
+    const data = await this.knowledgeBaseModel.findOneAndUpdate(
+      { _id: id },
+      { $push: { pipelines: payload } },
+    );
+    return data;
   }
 }

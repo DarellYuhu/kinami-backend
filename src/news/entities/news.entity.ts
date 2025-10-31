@@ -1,4 +1,4 @@
-export class PavidMetadata {
+export class NewsMetadata {
   id: string;
   date: string;
   link: string;

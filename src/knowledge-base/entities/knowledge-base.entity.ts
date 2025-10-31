@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import mongoose, { HydratedDocument } from 'mongoose';
-import { PipelineType } from './pipeline-type.entity';
+import { HydratedDocument } from 'mongoose';
+import { Pipeline, PipelineSchema } from './pipeline.entity';
 
 @Schema()
 export class KnowledgeBase {
@@ -10,8 +10,8 @@ export class KnowledgeBase {
   @Prop({ required: false })
   description?: string;
 
-  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: PipelineType.name })
-  type: mongoose.Types.ObjectId[];
+  @Prop([PipelineSchema])
+  pipelines: Pipeline[];
 }
 
 export type KnowledgeBaseDocument = HydratedDocument<KnowledgeBase>;
